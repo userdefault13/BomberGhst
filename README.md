@@ -8,6 +8,7 @@ A classic 2D Bomberman-style arcade game built with Unity. Place bombs, destroy 
 ## 🎮 Game Features
 
 - **Classic Bomberman Gameplay**: Place bombs to destroy walls and defeat enemies
+- **Authentic Visual Style**: Colorful 16-bit pixel art matching classic Bomberman aesthetic
 - **Dynamic Level Generation**: Procedurally generated levels with destructible and indestructible walls
 - **Enemy AI**: Two types of enemies - random wanderers and player chasers
 - **Power-Up System**: 
@@ -46,6 +47,7 @@ cd BomberGhst
 4. Create Prefabs:
    - Follow the guide in `Assets/Prefabs/README.md` to set up all game object prefabs
    - Create or import sprites following `Assets/Sprites/README.md`
+   - See `VISUAL_STYLE_GUIDE.md` for detailed visual specifications matching classic Bomberman style
 
 5. Open the main scene:
    - Navigate to `Assets/Scenes/MainGame.unity`
@@ -107,6 +109,7 @@ BomberGhst/
 │   ├── Sprites/                   # Sprite assets
 │   ├── Materials/                 # Materials (if needed)
 │   └── ProjectSettings.md         # Unity configuration guide
+├── VISUAL_STYLE_GUIDE.md          # Art style specifications
 └── README.md                      # This file
 ```
 
