@@ -15,6 +15,9 @@ namespace BomberGhst
             public SpriteRenderer[] Pips;
         }
 
+        /// Aavegotchi portraits are 32px; the drawn ghost is 16px.
+        static float IconScale => GotchiArt.Available ? 0.6f : 1f;
+
         GameDirector game;
         Label roundLabel, timeLabel, targetLabel;
         Label bigLabel, smallLabel, flashLabel;
@@ -96,7 +99,9 @@ namespace BomberGhst
             var t = root.transform;
 
             c.Name = MakeLabel("Name", P(x, y + 30f), 1f, Config.SortHud, t);
-            c.Icon = Sprite("Icon", Art.Ghost(slot, Facing.Down, 0), P(x, y + 13f), Config.SortHud, t);
+            c.Icon = Sprite("Icon", Art.Ghost(slot, Facing.Down, 0),
+                P(x, y + 13f - GotchiArt.CenterOffsetUnits * Config.PPU * IconScale), Config.SortHud, t);
+            c.Icon.transform.localScale = Vector3.one * IconScale;
             c.Bombs = MakeLabel("Bombs", P(x, y - 3f), 1f, Config.SortHud, t);
             c.Fire = MakeLabel("Fire", P(x, y - 12f), 1f, Config.SortHud, t);
             c.Speed = MakeLabel("Speed", P(x, y - 21f), 1f, Config.SortHud, t);

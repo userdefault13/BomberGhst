@@ -31,9 +31,43 @@ Open the folder in Unity **6000.4.10f1** and press Play. Any scene works —
 the game builds itself from code in `Boot.Launch`, so `Assets/Scenes/Main.unity`
 is deliberately empty.
 
-There are no art, audio or prefab assets: every sprite, the 5x7 font and all
-the sound is generated procedurally at startup, so the whole repository is
-plain text.
+The bombers are Aavegotchis, built from the layered part PNGs that
+Aavegotchi Paaint exports (see below). Everything else - blocks, bombs,
+flames, pickups, the 5x7 font, the sound effects and the BGM - is still
+generated procedurally at startup, and the game falls back to a drawn ghost
+if the Aavegotchi sheet is absent, so it always runs standalone.
+
+## Bomber sprites
+
+`tools/build_gotchi_sprites.py` reads the 64x64 part PNGs from
+`Aseprite-AavegotchiPaaint/PNGs/Base`, composites the poses the game needs,
+halves them onto a 32px grid with a hard alpha cut so the art stays crisp, and
+writes `Assets/Resources/GotchiSprites.png` plus a manifest. The output is
+committed, so the Paaint repo is only needed when the art changes:
+
+```sh
+python3 tools/build_gotchi_sprites.py            # defaults to ~/Dev/Aseprite-AavegotchiPaaint
+```
+
+Six poses per player - hands open and closed for down and up, one side pose
+mirrored for left, and a take-damage frame for the death animation. Eyes come
+from the trait art rather than the base expressions: `--eye-shape` and
+`--eye-color` default to **50/50**, the common band, and the exporter resolves
+those to the right asset by reading the `Range_lo-hi` folder names, so other
+trait values work without touching the script.
+
+The four players are four collaterals, picked so they read apart on a dark
+playfield:
+
+| Slot | Collateral | Accent |
+|---|---|---|
+| P1 | maUNI | `#ff2a7a` |
+| P2 | maYFI | `#0074f9` |
+| P3 | maUSDT | `#26a17b` |
+| P4 | maDAI | `#ff7d00` |
+
+The sprites are pivoted at the feet and stand about 1.6 tiles tall, so a bomber
+overlaps the tile above it the way a Neo Geo sprite should.
 
 ## Controls
 
@@ -195,6 +229,7 @@ Assets/Plugins/WebGL/
   AarcadeChain.jslib   provider.request bridge for signing
 Assets/Scripts/Core/
   Config.cs      tuning constants, palette, tile<->world maths
+  GotchiArt.cs   slices the Aavegotchi sheet, falls back to the drawn ghost
   Pix.cs         tiny CPU raster canvas (every sprite is drawn with it)
   Art.cs         the sprite library, generated and cached on first use
   PixelFont.cs   5x7 bitmap font -> sprite
@@ -214,6 +249,9 @@ Assets/Scripts/Game/
   Letterbox.cs     keeps the 320x224 aspect at any window size
 Assets/Editor/
   ProjectSetup.cs  scene + player settings, and the batch build entry point
+  GotchiTextureImporter.cs  keeps the sprite sheet point filtered and uncompressed
+tools/
+  build_gotchi_sprites.py   Aavegotchi Paaint parts -> the bomber sheet
 ```
 
 The bots read a danger map built from every live bomb's blast footprint, then

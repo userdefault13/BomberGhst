@@ -29,6 +29,7 @@ namespace BomberGhst
         Facing facing = Facing.Down;
         bool faceLeft;
         float animTime;
+        int animFrame;
         float deathTime;
         Vector2Int lastDir = Vector2Int.down;
 
@@ -194,7 +195,7 @@ namespace BomberGhst
         {
             float n = (Time.time - deathTime) / 1.1f;
             if (n >= 1f) { sr.enabled = false; return; }
-            transform.position = Config.TileToWorld(Pos.x, Pos.y + n * 1.4f);
+            transform.position = Config.TileToWorld(Pos.x, Pos.y + FootDrop + n * 1.4f);
             transform.localScale = new Vector3(1f - n * 0.3f, 1f + n * 0.2f, 1f);
             sr.color = new Color(1f, 1f, 1f, 1f - n);
             sr.sortingOrder = Config.SortFlame + 1;
@@ -208,13 +209,19 @@ namespace BomberGhst
             if (moving) animTime += Time.deltaTime * (Speed * 1.9f);
             else animTime += Time.deltaTime * 2.2f;
             int frame = moving ? Mathf.FloorToInt(animTime) % 4 : (Mathf.FloorToInt(animTime) % 2) * 2;
+            animFrame = frame;
             sr.sprite = Art.Ghost(Slot, facing, frame);
             sr.flipX = facing == Facing.Side && faceLeft;
         }
 
+        /// Aavegotchi sprites are pivoted at the feet and stand taller than a
+        /// tile, so they sit low on the tile with the body overlapping upwards.
+        static float FootDrop => GotchiArt.Available ? -0.2f : 0.06f;
+
         void Sync()
         {
-            transform.position = Config.TileToWorld(Pos.x, Pos.y + 0.06f);
+            float bob = GotchiArt.Available ? GotchiArt.BobUnits(animFrame) : 0f;
+            transform.position = Config.TileToWorld(Pos.x, Pos.y + FootDrop + bob);
             sr.sortingOrder = Config.SortActor + Config.YSort(Pos.y, 2);
         }
     }

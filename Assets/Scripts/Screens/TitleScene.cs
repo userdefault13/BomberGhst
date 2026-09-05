@@ -17,6 +17,8 @@ namespace BomberGhst.Screens
         CartridgeService service;
         float t;
 
+        static float GhostScale => GotchiArt.Available ? 1f : 1.5f;
+
         protected override void Build()
         {
             Sfx.Ensure();
@@ -30,7 +32,7 @@ namespace BomberGhst.Screens
             for (int i = 0; i < 4; i++)
             {
                 var g = Sprite("Ghost" + i, Art.Ghost(i, Facing.Down, 0), -60f + i * 40f, 26f, 15);
-                g.transform.localScale = Vector3.one * 1.5f;
+                g.transform.localScale = Vector3.one * GhostScale;
                 ghosts.Add(g);
             }
 
@@ -101,7 +103,8 @@ namespace BomberGhst.Screens
             for (int i = 0; i < ghosts.Count; i++)
             {
                 float bob = Mathf.Sin(t * 2.2f + i * 0.8f) * 3f;
-                ghosts[i].transform.position = P(-60f + i * 40f, 26f + bob);
+                ghosts[i].transform.position = P(-60f + i * 40f,
+                    26f + bob - GotchiArt.CenterOffsetUnits * Config.PPU * GhostScale);
                 ghosts[i].sprite = Art.Ghost(i, Facing.Down, Mathf.FloorToInt(t * 4f + i) % 4);
             }
 

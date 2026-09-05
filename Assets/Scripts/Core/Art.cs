@@ -222,8 +222,17 @@ namespace BomberGhst
 
         // -------------------------------------------------------------- bombers
 
-        /// A little sheet-ghost bomber. 4 walk frames per facing, per team colour.
+        /// A bomber. Uses the Aavegotchi sheet when it is present, otherwise
+        /// falls back to the little drawn sheet-ghost below.
         public static Sprite Ghost(int team, Facing face, int frame)
+        {
+            var gotchi = GotchiArt.Ghost(team, face, frame);
+            if (gotchi != null) return gotchi;
+            return DrawnGhost(team, face, frame);
+        }
+
+        /// 4 walk frames per facing, per team colour, drawn from scratch.
+        static Sprite DrawnGhost(int team, Facing face, int frame)
         {
             return Get($"g{team}{(int)face}{frame}", () =>
             {
