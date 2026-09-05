@@ -1,0 +1,16 @@
+{
+  "cartridges": [
+    {
+      "cartridgeId": "1",
+      "gameId": "bomberghst",
+      "gameIdHash": "0xc73acbd1c412746eaf7be7a38955802a0c7707aa1e558fb1ea76c64bb9e9bd1e",
+      "owner": "0x2127AA7265D573Aa467f1D73554D17890b872E76",
+      "exists": true,
+      "lineAPaid": true,
+      "activeHeroId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "pocketGhstWei": "100000000000000000000",
+      "checkpoint": { "nonce": 0, "stateHash": "0x0", "stateUri": "", "savedAt": 0 },
+      "heroIds": []
+    }
+  ]
+}
