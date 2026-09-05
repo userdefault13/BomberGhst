@@ -179,6 +179,10 @@ Keccak-256, an ABI encoder/decoder and a JSON-RPC client. **BomberGhst > Run
 Chain Self Test** pins all of it, plus the SIM checkpoint crypto, against
 vectors taken from `cast` and from `lib/cartridgeSim.cjs` run under node.
 
+Open items for the move onto Base Sepolia - including why a chain-sourced
+cartridge cannot yet show its bound gotchi - are collected in
+[docs/CHAIN_MIGRATION.md](docs/CHAIN_MIGRATION.md).
+
 ### Known limits
 
 - On chain, `mintCartridge` is gated to the protocol multisig and authorized
