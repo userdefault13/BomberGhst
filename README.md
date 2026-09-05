@@ -275,15 +275,18 @@ From the Unity menu: **BomberGhst > Set Up Project**, then build normally.
 **BomberGhst > Run Chain Self Test** checks the chain layer against the
 foundry reference vectors.
 
-WebGL is the shipping target; drop the output in the Aarcade site under
-`public/games/bomberghst/Build` as described in that repo's
-`UNITY_WEBGL_SETUP.md`:
+WebGL is the shipping target. The build lands in `Builds/bomberghst/Build`,
+Brotli compressed and named for the game slug, which is what the Aarcade site
+expects under `public/games/bomberghst/Build`:
 
 ```sh
 "/Applications/Unity/Hub/Editor/6000.4.10f1/Unity.app/Contents/MacOS/Unity" \
   -batchmode -nographics -quit -projectPath . \
   -executeMethod BomberGhst.EditorTools.ProjectSetup.BuildWebGL
 ```
+
+The `.br` files need `Content-Encoding: br` declared for them in the site's
+`vercel.json`, the same way the other games do it.
 
 Headless macOS build:
 

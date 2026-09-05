@@ -75,19 +75,24 @@ namespace BomberGhst.EditorTools
         public static void BuildWebGL()
         {
             Run();
-            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
+
+            // The Aarcade site serves Brotli with per file Content-Encoding
+            // headers, and names build files after the game slug.
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Brotli;
             PlayerSettings.WebGL.exceptionSupport = WebGLExceptionSupport.ExplicitlyThrownExceptionsOnly;
             PlayerSettings.WebGL.dataCaching = true;
+            PlayerSettings.productName = Chain.ChainConfig.GameId;
 
             var options = new BuildPlayerOptions
             {
                 scenes = new[] { TitleScenePath, CartridgeScenePath, ScenePath },
-                locationPathName = "Builds/WebGL",
+                locationPathName = "Builds/" + Chain.ChainConfig.GameId,
                 target = BuildTarget.WebGL,
                 options = BuildOptions.None,
             };
             var report = BuildPipeline.BuildPlayer(options);
             bool ok = report.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded;
+            PlayerSettings.productName = "BomberGhst";
             Debug.Log("BomberGhst webgl build: " + report.summary.result);
             EditorApplication.Exit(ok ? 0 : 1);
         }
