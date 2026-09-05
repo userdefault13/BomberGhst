@@ -24,9 +24,10 @@ import zlib
 FRAME = 64          # source part size
 CELL = FRAME // 2   # exported cell size
 
-# Player slot -> collateral. Chosen so the four bombers read as clearly
-# different colours on a dark playfield: pink, blue, green, orange.
-COLLATERALS = ["mauni", "mayfi", "mausdt", "madai"]
+# Default player slot -> collateral, chosen so four bombers read as clearly
+# different colours on a dark playfield: pink, blue, green, orange. A cartridge
+# with a bound hero overrides its slot, so every collateral gets a row.
+DEFAULT_SLOTS = ["mauni", "mayfi", "mausdt", "madai"]
 
 # Column order in the sheet. Left facing is the mirror of right at runtime.
 # eye_view picks the trait eye sprite: 0 front, 2 right, None for the back view.
@@ -250,7 +251,13 @@ def main():
     if not os.path.isdir(root):
         sys.exit(f"Aavegotchi Paaint art not found at {root}")
 
-    sheet_w, sheet_h = CELL * len(FRAMES), CELL * len(COLLATERALS)
+    collaterals = sorted(d[len("base-"):] for d in os.listdir(root)
+                         if d.startswith("base-") and os.path.isdir(os.path.join(root, d)))
+    missing = [c for c in DEFAULT_SLOTS if c not in collaterals]
+    if missing:
+        sys.exit(f"default slot collaterals missing from the art: {missing}")
+
+    sheet_w, sheet_h = CELL * len(FRAMES), CELL * len(collaterals)
     sheet = [[(0, 0, 0, 0)] * sheet_w for _ in range(sheet_h)]
     manifest = {
         "cell": CELL,
@@ -258,11 +265,12 @@ def main():
         "eyeColor": args.eye_color,
         "eyeBand": band,
         "frames": [f[0] for f in FRAMES],
-        "players": [],
+        "defaultSlots": DEFAULT_SLOTS,
+        "rows": [],
         "source": "Aseprite-AavegotchiPaaint/PNGs/Base",
     }
 
-    for row, collateral in enumerate(COLLATERALS):
+    for row, collateral in enumerate(collaterals):
         base_dir = os.path.join(root, f"base-{collateral}")
         if not os.path.isdir(base_dir):
             sys.exit(f"missing collateral art: {base_dir}")
@@ -290,19 +298,20 @@ def main():
                         if c[3] > 8 and c[:3] != (255, 255, 255):
                             counts[c[:3]] = counts.get(c[:3], 0) + 1
                 accent = max(counts, key=counts.get) if counts else (255, 255, 255)
-                manifest["players"].append({
-                    "slot": row,
+                manifest["rows"].append({
+                    "row": row,
                     "collateral": collateral,
                     "accent": "#%02x%02x%02x" % accent,
                     "bounds": {"x": box[0], "y": box[1], "w": box[2] - box[0] + 1, "h": box[3] - box[1] + 1},
                 })
-        print(f"  slot {row}: {collateral:8s} accent #%02x%02x%02x" % accent +
-              f"  eyes {os.path.basename(eye_dir)}/{band}")
+        slot = DEFAULT_SLOTS.index(collateral) if collateral in DEFAULT_SLOTS else None
+        tag = f" (P{slot + 1})" if slot is not None else ""
+        print(f"  row {row:2d}: {collateral:9s} accent #%02x%02x%02x" % accent + tag)
 
     out_dir = os.path.abspath(args.out)
     os.makedirs(out_dir, exist_ok=True)
     png_path = os.path.join(out_dir, "GotchiSprites.png")
-    json_path = os.path.join(out_dir, "GotchiSprites.json")
+    json_path = os.path.join(out_dir, "GotchiManifest.json")
     write_png(png_path, sheet_w, sheet_h, sheet)
     open(json_path, "w").write(json.dumps(manifest, indent=2) + "\n")
     print(f"wrote {png_path} ({sheet_w}x{sheet_h}) and {json_path}")

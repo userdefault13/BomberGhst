@@ -29,6 +29,12 @@ namespace BomberGhst.Cartridges
         public bool HasCartridge => Active != null && Active.exists;
         public bool ReadyToPlay => IsGuest || (HasCartridge && Active.lineAPaid);
 
+        /// Collateral of the hero bound to the active cartridge, or null when
+        /// nothing is bound. Drives which Aavegotchi the local player wears.
+        public string HeroCollateral =>
+            Active != null && Active.HasHero ? Active.heroCollateral : null;
+        public int HeroHaunt => Active?.heroHaunt ?? 1;
+
         public CartridgeSource Source { get; private set; } = CartridgeSource.Sim;
         public string SessionToken => Aarcade.AarcadeBridge.Instance?.SessionToken;
 

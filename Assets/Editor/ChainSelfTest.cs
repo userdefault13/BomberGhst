@@ -122,6 +122,16 @@ namespace BomberGhst.EditorTools
             Eq("sim pocket to wei", Cartridges.SimApi.ToWei("100"), "100000000000000000000");
             Eq("sim pocket fraction", Cartridges.SimApi.ToWei("1.5"), "1500000000000000000");
 
+            // bound hero collateral -> sprite row. Paaint names haunt 1 art ma*
+            // and haunt 2 am*, while a bound hero carries the bare symbol.
+            Eq("row weth haunt1", Row("weth", 1, 0), "maweth");
+            Eq("row dai haunt1", Row("dai", 1, 0), "madai");
+            Eq("row dai haunt2", Row("dai", 2, 0), "amdai");
+            Eq("row matic haunt2", Row("matic", 2, 0), "amwmatic");
+            Eq("row already prefixed", Row("madai", 1, 0), "madai");
+            Eq("row unbound falls back to slot 0", Row(null, 1, 0), "mauni");
+            Eq("row unknown falls back to slot 2", Row("notacollateral", 1, 2), "mausdt");
+
             if (failures.Count == 0)
             {
                 Debug.Log("ChainSelfTest: all checks passed.");
@@ -137,6 +147,18 @@ namespace BomberGhst.EditorTools
         {
             Run();
             EditorApplication.Exit(failures.Count == 0 ? 0 : 1);
+        }
+
+        /// Resolves a collateral to the sprite row's collateral name, so the
+        /// expectations below read as art rather than as indices.
+        static string Row(string collateral, int haunt, int slot)
+        {
+            int row = GotchiArt.RowFor(collateral, haunt, slot);
+            var manifest = UnityEngine.Resources.Load<TextAsset>("GotchiManifest");
+            if (manifest == null) return "<no manifest>";
+            var match = System.Text.RegularExpressions.Regex.Match(
+                manifest.text, "\\{\\s*\"row\": " + row + ",\\s*\"collateral\": \"([a-zA-Z]+)\"");
+            return match.Success ? match.Groups[1].Value : "<row " + row + ">";
         }
 
         static string Repeat(string s, int times)

@@ -1,0 +1,199 @@
+{
+  "cell": 32,
+  "eyeShape": 50,
+  "eyeColor": 50,
+  "eyeBand": "common",
+  "frames": [
+    "down_open",
+    "down_closed",
+    "up_open",
+    "up_closed",
+    "side",
+    "dead"
+  ],
+  "defaultSlots": [
+    "mauni",
+    "mayfi",
+    "mausdt",
+    "madai"
+  ],
+  "rows": [
+    {
+      "row": 0,
+      "collateral": "amaave",
+      "accent": "#b6509e",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 1,
+      "collateral": "amdai",
+      "accent": "#ff7d00",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 2,
+      "collateral": "amusdc",
+      "accent": "#2664ba",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 3,
+      "collateral": "amusdt",
+      "accent": "#26a17b",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 4,
+      "collateral": "amwbtc",
+      "accent": "#ff5e00",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 5,
+      "collateral": "amweth",
+      "accent": "#000000",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 6,
+      "collateral": "amwmatic",
+      "accent": "#824ee2",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 7,
+      "collateral": "maaave",
+      "accent": "#b6509e",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 8,
+      "collateral": "madai",
+      "accent": "#ff7d00",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 9,
+      "collateral": "malink",
+      "accent": "#0000b9",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 10,
+      "collateral": "matusd",
+      "accent": "#282473",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 11,
+      "collateral": "mauni",
+      "accent": "#ff2a7a",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 12,
+      "collateral": "mausdc",
+      "accent": "#2664ba",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 13,
+      "collateral": "mausdt",
+      "accent": "#26a17b",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 14,
+      "collateral": "maweth",
+      "accent": "#64438e",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    },
+    {
+      "row": 15,
+      "collateral": "mayfi",
+      "accent": "#0074f9",
+      "bounds": {
+        "x": 3,
+        "y": 3,
+        "w": 26,
+        "h": 25
+      }
+    }
+  ],
+  "source": "Aseprite-AavegotchiPaaint/PNGs/Base"
+}

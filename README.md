@@ -56,8 +56,15 @@ from the trait art rather than the base expressions: `--eye-shape` and
 those to the right asset by reading the `Range_lo-hi` folder names, so other
 trait values work without touching the script.
 
-The four players are four collaterals, picked so they read apart on a dark
-playfield:
+Every collateral gets a row in the sheet, because a cartridge with a bound
+hero overrides its player's look: `CartridgeService` reports the bound hero's
+collateral and haunt, and the local player wears that Aavegotchi instead of the
+slot default. Paaint names haunt 1 art `ma*` and haunt 2 `am*` while a bound
+hero carries the bare symbol, so `GotchiArt.RowFor` tries both prefixes and
+falls back to the slot default when nothing matches.
+
+Unbound cartridges and the bots use these four defaults, picked so they read
+apart on a dark playfield:
 
 | Slot | Collateral | Accent |
 |---|---|---|

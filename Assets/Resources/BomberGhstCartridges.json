@@ -7,10 +7,20 @@
       "owner": "0x2127AA7265D573Aa467f1D73554D17890b872E76",
       "exists": true,
       "lineAPaid": true,
-      "activeHeroId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "activeHeroId": "owned-3821",
       "pocketGhstWei": "100000000000000000000",
-      "checkpoint": { "nonce": 0, "stateHash": "0x0", "stateUri": "", "savedAt": 0 },
-      "heroIds": []
+      "checkpoint": {
+        "nonce": 0,
+        "stateHash": "0x0",
+        "stateUri": "",
+        "savedAt": 0
+      },
+      "heroIds": [
+        "owned-3821"
+      ],
+      "heroLabel": "weth OWNED #3821",
+      "heroCollateral": "weth",
+      "heroHaunt": 1
     }
   ]
 }

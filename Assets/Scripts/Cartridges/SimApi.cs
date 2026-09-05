@@ -55,6 +55,8 @@ namespace BomberGhst.Cartridges
         {
             public string bindType;
             public string sourceTokenId;
+            public string collateral;
+            public int hauntId;
         }
 
         [Serializable]

@@ -224,9 +224,14 @@ namespace BomberGhst
 
         /// A bomber. Uses the Aavegotchi sheet when it is present, otherwise
         /// falls back to the little drawn sheet-ghost below.
-        public static Sprite Ghost(int team, Facing face, int frame)
+        public static Sprite Ghost(int team, Facing face, int frame) =>
+            Ghost(null, 1, team, face, frame);
+
+        /// A bomber wearing a specific collateral, falling back to the slot's
+        /// default when the cartridge has no hero bound.
+        public static Sprite Ghost(string collateral, int haunt, int team, Facing face, int frame)
         {
-            var gotchi = GotchiArt.Ghost(team, face, frame);
+            var gotchi = GotchiArt.Ghost(collateral, haunt, team, face, frame);
             if (gotchi != null) return gotchi;
             return DrawnGhost(team, face, frame);
         }

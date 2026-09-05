@@ -108,7 +108,8 @@ namespace BomberGhst.Cartridges
             var target = Find(cart.cartridgeId);
             if (target != null)
             {
-                target.activeHeroId = Chain.Keccak.HashHex("owned-" + sourceTokenId);
+                target.activeHeroId = "owned-" + sourceTokenId;
+                target.heroLabel = "owned #" + sourceTokenId;
                 target.heroIds.Add(target.activeHeroId);
                 Persist();
             }
@@ -121,7 +122,11 @@ namespace BomberGhst.Cartridges
             var target = Find(cart.cartridgeId);
             if (target != null)
             {
-                target.activeHeroId = Chain.Keccak.HashHex("starter-" + templateId + "-" + target.heroIds.Count);
+                target.activeHeroId = "starter-" + templateId + "-" + target.heroIds.Count;
+                // the SIM defaults a starter bind to dai collateral
+                target.heroCollateral = "dai";
+                target.heroHaunt = 1;
+                target.heroLabel = "dai starter";
                 target.heroIds.Add(target.activeHeroId);
                 Persist();
             }

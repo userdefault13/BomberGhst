@@ -24,6 +24,10 @@ namespace BomberGhst
         public int ActiveBombs;
         public int Wins;
 
+        /// Set for the local player when their cartridge has a hero bound.
+        public string Collateral;
+        public int Haunt = 1;
+
         Arena arena;
         SpriteRenderer sr;
         Facing facing = Facing.Down;
@@ -185,7 +189,7 @@ namespace BomberGhst
             if (!Alive) return;
             Alive = false;
             deathTime = Time.time;
-            sr.sprite = Art.Ghost(Slot, Facing.Down, 4);
+            sr.sprite = Art.Ghost(Collateral, Haunt, Slot, Facing.Down, 4);
             sr.flipX = false;
             Sfx.Play(Sound.Death);
             GameDirector.I.OnBomberDied(this);
@@ -210,7 +214,7 @@ namespace BomberGhst
             else animTime += Time.deltaTime * 2.2f;
             int frame = moving ? Mathf.FloorToInt(animTime) % 4 : (Mathf.FloorToInt(animTime) % 2) * 2;
             animFrame = frame;
-            sr.sprite = Art.Ghost(Slot, facing, frame);
+            sr.sprite = Art.Ghost(Collateral, Haunt, Slot, facing, frame);
             sr.flipX = facing == Facing.Side && faceLeft;
         }
 

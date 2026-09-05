@@ -17,6 +17,10 @@ namespace BomberGhst.Cartridges
         public bool lineAPaid;
         public string activeHeroId;
         public string heroLabel;
+        /// Collateral of the bound hero, as the SIM reports it (bare symbol
+        /// such as "dai"), plus the haunt that decides the ma*/am* art set.
+        public string heroCollateral;
+        public int heroHaunt = 1;
         public string pocketGhstWei = "0";
         public CartridgeCheckpoint checkpoint = new CartridgeCheckpoint();
         public List<string> heroIds = new List<string>();

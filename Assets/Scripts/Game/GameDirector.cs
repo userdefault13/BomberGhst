@@ -215,6 +215,15 @@ namespace BomberGhst
                     ? (i == 0 ? (IBrain)HumanBrain.Wasd(humanCount == 1) : HumanBrain.Arrows())
                     : new BotBrain { Skill = Mathf.Lerp(0.6f, 1f, i / 3f) };
                 bomber.Init(Arena, i, Pal.TeamName[i], brain, Spawns[i]);
+
+                // the local player wears whatever gotchi is bound to their cartridge
+                if (i == 0)
+                {
+                    var svc = CartridgeService.I;
+                    bomber.Collateral = svc?.HeroCollateral;
+                    bomber.Haunt = svc?.HeroHaunt ?? 1;
+                }
+
                 Bombers.Add(bomber);
             }
         }

@@ -214,6 +214,7 @@ namespace BomberGhst
                 if (!active) continue;
 
                 var b = game.Bombers[i];
+                c.Icon.sprite = Art.Ghost(b.Collateral, b.Haunt, i, Facing.Down, 0);
                 c.Name.Set(b.Name, b.Alive ? Pal.Team[i] : Pal.Gray);
                 c.Icon.color = b.Alive ? Color.white : new Color(0.35f, 0.35f, 0.4f, 1f);
                 c.Bombs.Set("B " + b.BombLimit, Pal.Bone);

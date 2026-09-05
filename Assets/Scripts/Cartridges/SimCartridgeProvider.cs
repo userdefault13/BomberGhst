@@ -92,9 +92,13 @@ namespace BomberGhst.Cartridges
 
             if (sim.cAavegotchi != null)
             {
+                cart.heroCollateral = sim.cAavegotchi.collateral;
+                cart.heroHaunt = sim.cAavegotchi.hauntId > 0 ? sim.cAavegotchi.hauntId : 1;
                 cart.heroLabel = string.IsNullOrEmpty(sim.cAavegotchi.sourceTokenId)
                     ? (sim.cAavegotchi.bindType ?? "BOUND")
                     : sim.cAavegotchi.bindType + " #" + sim.cAavegotchi.sourceTokenId;
+                if (!string.IsNullOrEmpty(cart.heroCollateral))
+                    cart.heroLabel = cart.heroCollateral + " " + cart.heroLabel;
                 cart.heroIds.Add(cart.activeHeroId);
             }
 
